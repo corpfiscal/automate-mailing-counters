@@ -1,0 +1,87 @@
+{
+  "compilerOptions": {
+    // ─── Compilacion ─────────────────────────────────────────────
+
+    // Genera JS moderno (ES2022): async/await nativo, optional chaining,
+    // nullish coalescing. Node 18+ soporta ES2022 completo sin polyfills.
+    "target": "ES2022",
+
+    // Genera require()/module.exports — el sistema de modulos que
+    // Node.js entiende nativamente. Si usaras ESM puro, seria "nodenext".
+    "module": "commonjs",
+
+    // APIs de JS disponibles en runtime (Promise, Map, Array.at, etc.).
+    // Debe coincidir con el target para que el compilador sepa que existe.
+    "lib": ["ES2022"],
+
+    // Carpeta donde van los .js compilados. Separada de src/ para
+    // no mezclar codigo fuente con output de build.
+    "outDir": "./dist",
+
+    // Raiz del codigo fuente. TypeScript preserva la estructura de
+    // carpetas de src/ dentro de dist/ (ej. src/config/env.ts -> dist/config/env.js).
+    "rootDir": "./src",
+
+    // ─── Strict Mode ─────────────────────────────────────────────
+    // Activa TODAS las validaciones estrictas de un solo golpe:
+    // noImplicitAny, strictNullChecks, strictFunctionTypes,
+    // strictBindCallApply, strictPropertyInitialization, etc.
+    // Es el nivel MINIMO recomendado para proyectos profesionales.
+    "strict": true,
+
+    // ─── Interop y Resolucion ────────────────────────────────────
+
+    // Permite usar `import x from 'lib'` con librerias CommonJS (como dotenv).
+    // Sin esto, necesitarias `import * as x from 'lib'` — syntax menos limpia.
+    "esModuleInterop": true,
+
+    // NO verifica tipos dentro de node_modules/.
+    // Acelera la compilacion y evita conflictos entre versiones de @types
+    // que estan fuera de nuestro control.
+    "skipLibCheck": true,
+
+    // Error si importas un archivo con casing diferente al nombre real
+    // del archivo (ej. ./Config vs ./config). Previene bugs en Linux
+    // donde el filesystem ES case-sensitive (macOS no lo es por default).
+    "forceConsistentCasingInFileNames": true,
+
+    // Permite importar archivos .json directamente con tipos inferidos.
+    // Ejemplo: import pkg from '../package.json' -> pkg.version es string.
+    "resolveJsonModule": true,
+
+    // ─── Output Adicional ────────────────────────────────────────
+
+    // Genera archivos .d.ts (type declarations) junto al .js compilado.
+    // Util si alguien quisiera importar este proyecto como libreria tipada.
+    "declaration": true,
+
+    // Genera .js.map (source maps) que conectan el JS compilado con el TS original.
+    // Cuando hay un error, el stack trace muestra lineas del .ts, no del .js.
+    "sourceMap": true,
+
+    // ─── Reglas de Codigo Limpio ─────────────────────────────────
+
+    // Error si declaras una variable y no la usas. Previene codigo muerto
+    // que ensucia el codebase y confunde a otros devs.
+    "noUnusedLocals": true,
+
+    // Error si una funcion tiene parametros que no usa. Indica logica
+    // incompleta o un refactor que se quedo a medias.
+    "noUnusedParameters": true,
+
+    // Error si una funcion tiene code paths que no retornan valor.
+    // Previene bugs donde una funcion "silenciosamente" retorna undefined.
+    "noImplicitReturns": true,
+
+    // Error si un case del switch no tiene break/return.
+    // Previene el clasico bug de "fallthrough accidental" donde
+    // la ejecucion cae al siguiente case sin querer.
+    "noFallthroughCasesInSwitch": true
+  },
+
+  // Incluir todos los archivos TypeScript dentro de src/
+  "include": ["src/**/*"],
+
+  // Excluir dependencias y output de compilacion del proceso de build
+  "exclude": ["node_modules", "dist"]
+}
